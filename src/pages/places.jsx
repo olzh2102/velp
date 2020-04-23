@@ -1,11 +1,17 @@
 import React from 'react'
-import configureStore from '../store/configureStore'
-import { loadPlaces } from '../store/places'
-const store = configureStore()
+import { connect } from 'react-redux'
 
-const PlacesPage = () => {
-	store.dispatch(loadPlaces())
+import { getPlaces } from '../store/places'
+
+const PlacesPage = ({ places }) => {
+	console.log(places)
 	return <h1>Places Page</h1>
 }
 
-export default PlacesPage
+const mapStateToProps = (state) => ({
+	places: getPlaces(state),
+})
+
+export default connect(mapStateToProps)(
+	PlacesPage
+)

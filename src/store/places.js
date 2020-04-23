@@ -1,4 +1,7 @@
-import { createSlice } from '@reduxjs/toolkit'
+import {
+	createSlice,
+	createSelector,
+} from '@reduxjs/toolkit'
 import { apiCallBegan } from './api'
 
 const slice = createSlice({
@@ -44,3 +47,9 @@ export const loadPlaces = () =>
 		onSuccess: placesReceived.type,
 		onError: placesRequestFailed.type,
 	})
+
+// selectors
+export const getPlaces = createSelector(
+	(state) => state.entities.places.list,
+	(list) => list
+)
