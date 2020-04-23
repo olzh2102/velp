@@ -9,10 +9,18 @@ import PlacesPage from './pages/places'
 function App() {
 	return (
 		<div className="App">
-			<Route
-				path="/places"
-				component={PlacesPage}
-			/>
+			<Switch>
+				<Route
+					path="/places"
+					component={PlacesPage}
+				/>
+
+				<Redirect
+					from="/"
+					exact
+					to="/places"
+				/>
+			</Switch>
 		</div>
 	)
 }
