@@ -1,14 +1,21 @@
-import React from 'react'
+import React, { useEffect } from 'react'
+import { connect } from 'react-redux'
 import {
 	Route,
 	Redirect,
 	Switch,
 } from 'react-router-dom'
 
+import { loadPlaces } from './store/places'
+
 import PlacesPage from './pages/places'
 import NotFoundPage from './pages/not-found'
 
-function App() {
+function App({ loadPlaces }) {
+	useEffect(() => {
+		loadPlaces()
+	}, [])
+
 	return (
 		<div className="App">
 			<Switch>
@@ -32,4 +39,11 @@ function App() {
 	)
 }
 
-export default App
+const mapDispatchToProps = (dispatch) => ({
+	loadPlaces: () => dispatch(loadPlaces()),
+})
+
+export default connect(
+	null,
+	mapDispatchToProps
+)(App)
