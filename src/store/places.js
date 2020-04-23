@@ -1,4 +1,5 @@
 import { createSlice } from '@reduxjs/toolkit'
+import { apiCallBegan } from './api'
 
 const slice = createSlice({
 	name: 'places',
@@ -11,3 +12,12 @@ const slice = createSlice({
 })
 
 export default slice.reducer
+
+export const loadPlaces = () =>
+	apiCallBegan({
+		params: {
+			term: 'restaurants',
+			location: 'berlin',
+			limit: 10,
+		},
+	})
