@@ -9,7 +9,7 @@ const slice = createSlice({
 		error: null,
 	},
 	reducers: {
-		placesRequestes: (places, action) => {
+		placesRequested: (places, action) => {
 			places.loading = true
 		},
 
@@ -25,6 +25,12 @@ const slice = createSlice({
 	},
 })
 
+const {
+	placesRequested,
+	placesReceived,
+	placesRequestFailed,
+} = slice.actions
+
 export default slice.reducer
 
 export const loadPlaces = () =>
@@ -34,4 +40,7 @@ export const loadPlaces = () =>
 			location: 'berlin',
 			limit: 10,
 		},
+		onStart: placesRequested.type,
+		onSuccess: placesReceived.type,
+		onError: placesRequestFailed.type,
 	})

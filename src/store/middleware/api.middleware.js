@@ -46,15 +46,33 @@ const api = ({ dispatch }) => (next) => async (
 			},
 		})
 
+		//general
 		dispatch(
 			actions.apiCallSuccess(
 				response.data.businesses
 			)
 		)
+
+		//specific
+		if (onSuccess) {
+			dispatch({
+				type: onSuccess,
+				payload: response.data.businesses,
+			})
+		}
 	} catch (error) {
+		//general
 		dispatch(
 			actions.apiCallFailed(error.message)
 		)
+
+		//specific
+		if (onError) {
+			dispatch({
+				type: onError,
+				payload: error.message,
+			})
+		}
 	}
 }
 
