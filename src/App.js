@@ -13,7 +13,13 @@ import NotFoundPage from './pages/not-found'
 
 function App({ loadPlaces }) {
 	useEffect(() => {
-		loadPlaces()
+		const params = {
+			term: 'restaurants',
+			location: 'berlin',
+			limit: 10,
+			categories: 'pizza,sushi,burgers',
+		}
+		loadPlaces(params)
 	}, [])
 
 	return (
@@ -40,7 +46,8 @@ function App({ loadPlaces }) {
 }
 
 const mapDispatchToProps = (dispatch) => ({
-	loadPlaces: () => dispatch(loadPlaces()),
+	loadPlaces: (params) =>
+		dispatch(loadPlaces(params)),
 })
 
 export default connect(

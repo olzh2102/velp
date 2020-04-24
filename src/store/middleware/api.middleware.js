@@ -1,6 +1,8 @@
 import axios from 'axios'
 import * as actions from '../api'
 
+const API_KEY = ''
+
 const api = ({ dispatch }) => (next) => async (
 	action
 ) => {
@@ -42,7 +44,7 @@ const api = ({ dispatch }) => (next) => async (
 			params,
 			data,
 			headers: {
-				Authorization: `Bearer`,
+				Authorization: `Bearer ${API_KEY}`,
 			},
 		})
 

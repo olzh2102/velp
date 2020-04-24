@@ -36,14 +36,9 @@ const {
 
 export default slice.reducer
 
-export const loadPlaces = () =>
+export const loadPlaces = (params) =>
 	apiCallBegan({
-		params: {
-			term: 'restaurants',
-			location: 'berlin',
-			limit: 10,
-			categories: 'pizza,sushi,burgers',
-		},
+		params,
 		onStart: placesRequested.type,
 		onSuccess: placesReceived.type,
 		onError: placesRequestFailed.type,
