@@ -55,21 +55,18 @@ export const getPlaces = createSelector(
 	(list) => list
 )
 
-export const getCat = createSelector(
+const transformCategories = (acc, current) => {
+	let categories = []
+
+	for (let c of current.categories) {
+		categories.push(c.alias)
+	}
+
+	acc.push({ ...current, categories })
+
+	return acc
+}
+export const getTransformedPlaces = createSelector(
 	(state) => state.entities.places.list,
-	(list) =>
-		list.reduce((acc, current) => {
-			let cat = []
-
-			for (let c of current.categories) {
-				cat.push(c.alias)
-			}
-
-			acc.push({
-				...current,
-				categories: cat,
-			})
-
-			return acc
-		}, [])
+	(list) => list.reduce(transformCategories, [])
 )
