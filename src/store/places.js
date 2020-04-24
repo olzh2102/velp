@@ -70,3 +70,12 @@ export const getTransformedPlaces = createSelector(
 	(state) => state.entities.places.list,
 	(list) => list.reduce(transformCategories, [])
 )
+
+export const getSelectedPlaces = (type) =>
+	createSelector(
+		[getTransformedPlaces],
+		(list) =>
+			list.filter((p) =>
+				p.categories.includes(type)
+			)
+	)
