@@ -42,6 +42,7 @@ export const loadPlaces = () =>
 			term: 'restaurants',
 			location: 'berlin',
 			limit: 10,
+			categories: 'pizza,sushi,burgers',
 		},
 		onStart: placesRequested.type,
 		onSuccess: placesReceived.type,
