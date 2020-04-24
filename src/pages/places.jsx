@@ -17,22 +17,32 @@ const PlacesWrapper = styled.div`
 `
 
 const PlacesPage = ({ p, getType }) => {
-	const [places, setPlaces] = useState([])
-	// const p = getType('burgers')
+	const [searchTerm, setSearchTerm] = useState(
+		''
+	)
+	const [
+		selectedType,
+		setSelectedType,
+	] = useState([])
 
-	// console.log('TYPE:', p)
+	useEffect(() => {
+		const yoyo = getType(searchTerm)
 
-	useEffect(() => setPlaces(p), [p])
+		const o = yoyo.length > 0 ? yoyo : p
+
+		setSelectedType(o)
+	}, [searchTerm, p])
 
 	const handleClick = (type) => {
-		const places = getType(type)
-		setPlaces(places)
-		console.log('YOY', places)
+		setSearchTerm(type)
 	}
 
 	return (
 		<>
 			<h1>Places Page</h1>
+			<button onClick={handleClick}>
+				All
+			</button>
 			<button
 				onClick={() =>
 					handleClick('sushi')
@@ -40,8 +50,15 @@ const PlacesPage = ({ p, getType }) => {
 			>
 				Sushi
 			</button>
+			<button
+				onClick={() =>
+					handleClick('pizza')
+				}
+			>
+				Pizza
+			</button>
 			<PlacesWrapper>
-				{places.map((p) => (
+				{selectedType.map((p) => (
 					<h1>{p.name}</h1>
 				))}
 			</PlacesWrapper>
