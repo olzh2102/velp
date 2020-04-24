@@ -54,3 +54,22 @@ export const getPlaces = createSelector(
 	(state) => state.entities.places.list,
 	(list) => list
 )
+
+export const getCat = createSelector(
+	(state) => state.entities.places.list,
+	(list) =>
+		list.reduce((acc, current) => {
+			let cat = []
+
+			for (let c of current.categories) {
+				cat.push(c.alias)
+			}
+
+			acc.push({
+				...current,
+				categories: cat,
+			})
+
+			return acc
+		}, [])
+)
