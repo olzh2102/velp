@@ -1,4 +1,4 @@
-import React, { useEffect } from 'react'
+import React, { useEffect, useState } from 'react'
 import { connect } from 'react-redux'
 import {
 	Route,
@@ -11,15 +11,17 @@ import { loadPlaces } from './store/places'
 import PlacesPage from './pages/places'
 import NotFoundPage from './pages/not-found'
 
+import WithSpinner from './components/with-spinner'
+
+const PlacesPageWithSpinner = WithSpinner(
+	PlacesPage
+)
+
 function App({ loadPlaces }) {
+	const [loading, setLoading] = useState(true)
 	useEffect(() => {
-		const params = {
-			term: 'restaurants',
-			location: 'berlin',
-			limit: 10,
-			categories: 'pizza,sushi,burgers',
-		}
-		loadPlaces(params)
+		loadPlaces()
+		setLoading(false)
 	}, [])
 
 	return (
@@ -27,7 +29,12 @@ function App({ loadPlaces }) {
 			<Switch>
 				<Route
 					path="/places"
-					component={PlacesPage}
+					render={(props) => (
+						<PlacesPageWithSpinner
+							isLoading={loading}
+							{...props}
+						/>
+					)}
 				/>
 				<Route
 					path="/not-found"
@@ -46,8 +53,7 @@ function App({ loadPlaces }) {
 }
 
 const mapDispatchToProps = (dispatch) => ({
-	loadPlaces: (params) =>
-		dispatch(loadPlaces(params)),
+	loadPlaces: () => dispatch(loadPlaces()),
 })
 
 export default connect(

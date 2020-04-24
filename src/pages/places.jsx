@@ -53,14 +53,12 @@ const PlacesPage = ({
 	}
 
 	const selectionTypes = [
-		'',
 		'sushi',
 		'pizza',
 		'burgers',
 	]
 
 	const handleChange = (e) => {
-		const { value, name } = e.target
 		setTypedPlace(e.target.value)
 	}
 

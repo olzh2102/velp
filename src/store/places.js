@@ -36,13 +36,30 @@ const {
 
 export default slice.reducer
 
-export const loadPlaces = (params) =>
-	apiCallBegan({
-		params,
-		onStart: placesRequested.type,
-		onSuccess: placesReceived.type,
-		onError: placesRequestFailed.type,
-	})
+export const loadPlaces = (parameters) => (
+	dispatch
+) => {
+	const defaultParams = {
+		term: 'restaurants',
+		location: 'berlin',
+		limit: 10,
+		categories: 'pizza,sushi,burgers',
+	}
+
+	const params = {
+		...defaultParams,
+		...parameters,
+	}
+
+	return dispatch(
+		apiCallBegan({
+			params,
+			onStart: placesRequested.type,
+			onSuccess: placesReceived.type,
+			onError: placesRequestFailed.type,
+		})
+	)
+}
 
 // selectors
 export const getPlaces = createSelector(
