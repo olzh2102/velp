@@ -3,7 +3,6 @@ import styled from 'styled-components'
 export const CardWrapper = styled.div`
 	display: flex;
 	flex-direction: row;
-	justify-content: space-between;
 
 	background-color: #fff;
 	box-shadow: 0 2px 4px rgba(27, 31, 35, 0.15);
@@ -19,6 +18,6 @@ export const ImageContainer = styled.div`
 	background-size: cover;
 	background-position: center;
 	border-radius: 3px;
-	width: 35%;
+	width: 45%;
 	height: 100%;
 `

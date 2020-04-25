@@ -41,7 +41,7 @@ export const CustomButtonContainer = styled.button`
 	text-transform: uppercase;
 	border-radius: 3px;
 	text-transform: uppercase;
-	font-family: 'Rajdhani';
+	font-family: 'Nunito Sans';
 	font-weight: bolder;
 	cursor: pointer;
 	display: flex;
