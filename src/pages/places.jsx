@@ -10,6 +10,7 @@ import {
 
 import Card from '../components/card'
 import CustomButton from '../components/custom-button'
+import FormInput from '../components/form-input'
 import WithSpinner from '../components/with-spinner'
 
 import { PlacesWrapper } from './places.styles'
@@ -19,7 +20,14 @@ const CardWithSpinner = WithSpinner(Card)
 const FilterWrapper = styled.div`
 	display: flex;
 	flex-direction: row;
+	justify-content: space-between;
 	align-items: flex-end;
+	width: 100%;
+
+	form {
+		display: flex;
+		flex-direction: column;
+	}
 `
 
 const FilterButtonsWrapper = styled.div`
@@ -87,13 +95,18 @@ const PlacesPage = ({
 					))}
 				</FilterButtonsWrapper>
 				<form onSubmit={handleSubmit}>
-					<input
-						type="text"
+					<FormInput
 						name="place"
+						type="text"
+						handleChange={handleChange}
 						value={place}
-						onChange={handleChange}
+						label="Place"
 					/>
-					<button type="submit">search</button>
+					<CustomButton
+						type="submit"
+						inverted
+						children="Search"
+					/>
 				</form>
 			</FilterWrapper>
 			<PlacesWrapper>
