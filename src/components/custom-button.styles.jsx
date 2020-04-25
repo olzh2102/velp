@@ -47,6 +47,10 @@ export const CustomButtonContainer = styled.button`
 	display: flex;
 	justify-content: center;
 
+	&:disabled {
+		cursor: not-allowed;
+	}
+
 	&:hover {
 		background-color: white;
 		color: black;

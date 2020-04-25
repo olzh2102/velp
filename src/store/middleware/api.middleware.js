@@ -10,8 +10,6 @@ const api = ({ dispatch }) => (next) => async (
 		return next(action)
 	}
 
-	console.log('API', action.payload)
-
 	const {
 		url,
 		data,

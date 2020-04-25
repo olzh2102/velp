@@ -13,78 +13,56 @@ import CustomButton from '../components/custom-button'
 import FormInput from '../components/form-input'
 import WithSpinner from '../components/with-spinner'
 
-import { PlacesWrapper } from './places.styles'
+import {
+	PlacesWrapper,
+	FilterWrapper,
+	FilterButtonsWrapper,
+} from './places.styles'
 
 const CardWithSpinner = WithSpinner(Card)
 
-const FilterWrapper = styled.div`
-	display: flex;
-	flex-direction: row;
-	justify-content: space-between;
-	align-items: flex-end;
-	width: 100%;
-
-	form {
-		display: flex;
-		flex-direction: column;
-	}
-`
-
-const FilterButtonsWrapper = styled.div`
-	display: flex;
-	flex-direction: column;
-	justify-content: space-between;
-
-	button {
-		margin: 3px;
-	}
-`
+const selectionTypes = [
+	'sushi',
+	'pizza',
+	'burgers',
+]
 
 const PlacesPage = ({
-	p,
-	getType,
+	defaultPlaces,
+	search,
 	loadPlaces,
 }) => {
-	const [searchTerm, setSearchTerm] = useState('')
-	const [place, setTypedPlace] = useState('')
-	const [
-		selectedType,
-		setSelectedType,
-	] = useState([])
+	const [place, setType] = useState('')
+	const [selected, setSelected] = useState([])
 
 	useEffect(() => {
-		const yoyo = getType(searchTerm)
+		let places = search(place)
+		places =
+			places.length > 0 ? places : defaultPlaces
 
-		const o = yoyo.length > 0 ? yoyo : p
+		setSelected(places)
+	}, [place, defaultPlaces])
 
-		setSelectedType(o)
-	}, [searchTerm, p])
-
-	const handleClick = (type) => {
-		loadPlaces(type)
-		setTypedPlace('')
+	const handleClick = async (type) => {
+		await loadPlaces(type)
+		setType('')
 	}
-
-	const selectionTypes = [
-		'sushi',
-		'pizza',
-		'burgers',
-	]
 
 	const handleChange = (e) => {
-		setTypedPlace(e.target.value)
+		setType(e.target.value)
 	}
 
-	const handleSubmit = (e) => {
+	const handleSubmit = async (e) => {
 		e.preventDefault()
 
-		loadPlaces(place)
-		setTypedPlace('')
+		await loadPlaces(place)
+		setType('')
 	}
 
 	return (
 		<>
 			<h1>Places Page</h1>
+
 			<FilterWrapper>
 				<FilterButtonsWrapper>
 					{selectionTypes.map((t) => (
@@ -104,13 +82,15 @@ const PlacesPage = ({
 					/>
 					<CustomButton
 						type="submit"
+						disabled={place === ''}
 						inverted
 						children="Search"
 					/>
 				</form>
 			</FilterWrapper>
+
 			<PlacesWrapper>
-				{selectedType.map((p) => (
+				{selected.map((p) => (
 					<CardWithSpinner place={p} />
 				))}
 			</PlacesWrapper>
@@ -119,13 +99,13 @@ const PlacesPage = ({
 }
 
 const mapDispatchToProps = (dispatch) => ({
-	loadPlaces: (params) =>
-		dispatch(loadPlaces(params)),
+	loadPlaces: (type) =>
+		dispatch(loadPlaces(type)),
 })
 
 const mapStateToProps = (state) => ({
-	p: getTransformedPlaces(state),
-	getType: (type) =>
+	defaultPlaces: getTransformedPlaces(state),
+	search: (type) =>
 		getSelectedPlaces(type)(state),
 })
 
