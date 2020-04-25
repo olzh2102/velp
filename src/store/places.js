@@ -36,7 +36,7 @@ const {
 
 export default slice.reducer
 
-export const loadPlaces = (parameters) => (
+export const loadPlaces = (type) => (
 	dispatch
 ) => {
 	const defaultParams = {
@@ -48,7 +48,7 @@ export const loadPlaces = (parameters) => (
 
 	const params = {
 		...defaultParams,
-		...parameters,
+		term: type,
 	}
 
 	return dispatch(
@@ -84,10 +84,8 @@ export const getTransformedPlaces = createSelector(
 )
 
 export const getSelectedPlaces = (type) =>
-	createSelector(
-		[getTransformedPlaces],
-		(list) =>
-			list.filter((p) =>
-				p.categories.includes(type)
-			)
+	createSelector([getTransformedPlaces], (list) =>
+		list.filter((p) =>
+			p.categories.includes(type)
+		)
 	)
