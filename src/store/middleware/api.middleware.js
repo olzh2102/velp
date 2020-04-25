@@ -6,9 +6,7 @@ const API_KEY = ''
 const api = ({ dispatch }) => (next) => async (
 	action
 ) => {
-	if (
-		action.type !== actions.apiCallBegan.type
-	) {
+	if (action.type !== actions.apiCallBegan.type) {
 		return next(action)
 	}
 
@@ -64,9 +62,7 @@ const api = ({ dispatch }) => (next) => async (
 		}
 	} catch (error) {
 		//general
-		dispatch(
-			actions.apiCallFailed(error.message)
-		)
+		dispatch(actions.apiCallFailed(error.message))
 
 		//specific
 		if (onError) {

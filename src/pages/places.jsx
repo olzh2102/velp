@@ -14,17 +14,51 @@ const PlacesWrapper = styled.div`
 		auto-fill,
 		minmax(450px, 1fr)
 	);
-	grid-gap: 1rem;
+	grid-gap: 2rem;
+
+	margin-top: 30px;
 `
+
+const CardWrapper = styled.div`
+	display: flex;
+	flex-direction: row;
+	justify-content: space-between;
+
+	background-color: #fff;
+	box-shadow: 0 2px 4px rgba(27, 31, 35, 0.15);
+	border: 1px solid rgba(187, 208, 216, 0.2);
+	border-radius: 10px;
+	padding: 25px;
+	height: 250px;
+`
+
+const ImageContainer = styled.div`
+	background-image: ${({ imageUrl }) =>
+		`url(${imageUrl})`};
+	background-size: cover;
+	background-position: center;
+	border-radius: 10px;
+	width: 35%;
+	height: 100%;
+`
+
+const Card = ({ place }) => {
+	return (
+		<CardWrapper>
+			<ImageContainer
+				imageUrl={place.image_url}
+			/>
+			<h2>{place.name}</h2>
+		</CardWrapper>
+	)
+}
 
 const PlacesPage = ({
 	p,
 	getType,
 	loadPlaces,
 }) => {
-	const [searchTerm, setSearchTerm] = useState(
-		''
-	)
+	const [searchTerm, setSearchTerm] = useState('')
 	const [place, setTypedPlace] = useState('')
 	const [
 		selectedType,
@@ -85,20 +119,16 @@ const PlacesPage = ({
 					value={place}
 					onChange={handleChange}
 				/>
-				<button type="submit">
-					search
-				</button>
+				<button type="submit">search</button>
 			</form>
 			{selectionTypes.map((t) => (
-				<button
-					onClick={() => handleClick(t)}
-				>
+				<button onClick={() => handleClick(t)}>
 					{t}
 				</button>
 			))}
 			<PlacesWrapper>
 				{selectedType.map((p) => (
-					<h1>{p.name}</h1>
+					<Card place={p} />
 				))}
 			</PlacesWrapper>
 		</>
