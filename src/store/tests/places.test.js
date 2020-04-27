@@ -7,6 +7,13 @@ describe('places slice', () => {
 	let fakeAxios
 	let store
 
+	const params = {
+		term: 'restaurants',
+		location: 'berlin',
+		limit: 10,
+		categories: 'pizza,sushi,burgers',
+	}
+
 	beforeEach(() => {
 		fakeAxios = new MockAdapter(axios)
 		store = configureStore()
@@ -19,13 +26,6 @@ describe('places slice', () => {
 	})
 
 	test('fetching places from the server and storing them in the store', async () => {
-		const params = {
-			term: 'restaurants',
-			location: 'berlin',
-			limit: 10,
-			categories: 'pizza,sushi,burgers',
-		}
-
 		fakeAxios
 			.onGet('/search', { params })
 			.reply(200, [{ id: 1 }])
@@ -45,6 +45,16 @@ describe('places slice', () => {
 			})
 
 			store.dispatch(loadPlaces())
+		})
+
+		test('should be false after places are fetched', async () => {
+			fakeAxios
+				.onGet('/search', { params })
+				.reply(200, [{ id: 1 }])
+
+			await store.dispatch(loadPlaces())
+
+			expect(placesSlice().loading).toBe(false)
 		})
 	})
 })
