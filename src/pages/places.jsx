@@ -1,9 +1,9 @@
 import React, { useEffect, useState } from 'react'
-import styled from 'styled-components'
 import { connect } from 'react-redux'
 
 import {
 	loadPlaces,
+	getPlaces,
 	getTransformedPlaces,
 	getSelectedPlaces,
 } from '../store/places'
@@ -29,9 +29,11 @@ const selectionTypes = [
 
 const PlacesPage = ({
 	defaultPlaces,
+	places,
 	search,
 	loadPlaces,
 }) => {
+	console.log('PLACES', places)
 	const [place, setType] = useState('')
 	const [selected, setSelected] = useState([])
 
@@ -104,6 +106,7 @@ const mapDispatchToProps = (dispatch) => ({
 })
 
 const mapStateToProps = (state) => ({
+	places: getPlaces(state),
 	defaultPlaces: getTransformedPlaces(state),
 	search: (type) =>
 		getSelectedPlaces(type)(state),

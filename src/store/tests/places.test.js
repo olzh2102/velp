@@ -1,6 +1,9 @@
 import axios from 'axios'
 import MockAdapter from 'axios-mock-adapter'
-import { loadPlaces } from '../places'
+import {
+	loadPlaces,
+	getTransformedPlaces,
+} from '../places'
 import configureStore from '../configureStore'
 
 describe('places slice', () => {
@@ -21,7 +24,7 @@ describe('places slice', () => {
 
 	const placesSlice = () =>
 		store.getState().entities.places
-	const createStore = () => ({
+	const createState = () => ({
 		entities: { places: { list: [] } },
 	})
 
@@ -65,6 +68,38 @@ describe('places slice', () => {
 			await store.dispatch(loadPlaces())
 
 			expect(placesSlice().loading).toBe(false)
+		})
+	})
+
+	describe('selectors', () => {
+		test('getTransformedPlaces', () => {
+			const state = createState()
+			state.entities.places.list = [
+				{
+					id: 1,
+					categories: [
+						{
+							alias: 'hotdogs',
+							title: 'Fast Food',
+						},
+						{
+							alias: 'burgers',
+							title: 'Burgers',
+						},
+					],
+				},
+			]
+
+			const expected = [
+				{
+					id: 1,
+					categories: ['hotdogs', 'burgers'],
+				},
+			]
+
+			const result = getTransformedPlaces(state)
+
+			expect(result).toEqual(expected)
 		})
 	})
 })
