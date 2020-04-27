@@ -2,7 +2,9 @@
 
 In the project directory, you can run:
 
-### `yarn` or `npm install` and after run:
+### `yarn` or `npm install` and after:
+
+include your API_KEY in api.middleware.js file, then run:
 
 ### `yarn start` or `npm start`
 
