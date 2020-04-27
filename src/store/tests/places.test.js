@@ -56,5 +56,15 @@ describe('places slice', () => {
 
 			expect(placesSlice().loading).toBe(false)
 		})
+
+		test('should be false if the server fails on fetching', async () => {
+			fakeAxios
+				.onGet('/search', { params })
+				.reply(500)
+
+			await store.dispatch(loadPlaces())
+
+			expect(placesSlice().loading).toBe(false)
+		})
 	})
 })
