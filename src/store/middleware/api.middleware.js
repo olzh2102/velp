@@ -34,7 +34,7 @@ const api = ({ dispatch }) => (next) => async (
 	try {
 		const response = await axios.request({
 			baseURL:
-				'https://cors-anywhere.herokuapp.com/https://api.yelp.com/v3/businesses/search',
+				'https://cors-anywhere.herokuapp.com/https://api.yelp.com/v3/businesses',
 			url,
 			method,
 			params,

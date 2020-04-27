@@ -36,6 +36,7 @@ const {
 
 export default slice.reducer
 
+const url = '/search'
 export const loadPlaces = (type) => (
 	dispatch
 ) => {
@@ -53,6 +54,7 @@ export const loadPlaces = (type) => (
 
 	return dispatch(
 		apiCallBegan({
+			url,
 			params,
 			onStart: placesRequested.type,
 			onSuccess: placesReceived.type,
