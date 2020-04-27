@@ -52,7 +52,7 @@ For styling I used Styled-Components package, but not an CSS preprocessor. Befor
 
 ---
 
-Updated React and ReactDOM, since I wanted to show that I know hooks as well. They are relatively new, but getting popular in React community. I used it to build `rating` component.
+Updated React and ReactDOM, since I wanted to show that I know hooks as well. They are relatively new, but getting popular in React community.
 
 ---
 
