@@ -4,9 +4,21 @@ import { loadPlaces } from '../places'
 import configureStore from '../configureStore'
 
 describe('places slice', () => {
+	let fakeAxios
+	let store
+
+	beforeEach(() => {
+		fakeAxios = new MockAdapter(axios)
+		store = configureStore()
+	})
+
+	const placesSlice = () =>
+		store.getState().entities.places
+	const createStore = () => ({
+		entities: { places: { list: [] } },
+	})
+
 	test('fetching places from the server and storing them in the store', async () => {
-		const fakeAxios = new MockAdapter(axios)
-		const store = configureStore()
 		const params = {
 			term: 'restaurants',
 			location: 'berlin',
@@ -23,5 +35,16 @@ describe('places slice', () => {
 		expect(
 			store.getState().entities.places.list
 		).toHaveLength(1)
+	})
+
+	describe('loading indicator', () => {
+		test('should be true while fetching the places', () => {
+			fakeAxios.onGet('/places').reply(() => {
+				expect(placesSlice().loading).toBe(true)
+				return [200, [{ id: 1 }]]
+			})
+
+			store.dispatch(loadPlaces())
+		})
 	})
 })
