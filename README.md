@@ -1,68 +1,66 @@
-This project was bootstrapped with [Create React App](https://github.com/facebook/create-react-app).
-
-## Available Scripts
+## Instrcutions & Explanation
 
 In the project directory, you can run:
 
-### `yarn start`
+### `yarn` or `npm install` and after run:
+
+### `yarn start` or `npm start`
 
 Runs the app in the development mode.<br />
 Open [http://localhost:3000](http://localhost:3000) to view it in the browser.
 
-The page will reload if you make edits.<br />
-You will also see any lint errors in the console.
-
-### `yarn test`
+### `yarn test` or `npm test`
 
 Launches the test runner in the interactive watch mode.<br />
 See the section about [running tests](https://facebook.github.io/create-react-app/docs/running-tests) for more information.
 
-### `yarn build`
+### to test specific file run `yarn test <file-name>.test.js` or `npm test <file-name>.test.js`
+
+### `yarn build` or `npm build`
 
 Builds the app for production to the `build` folder.<br />
-It correctly bundles React in production mode and optimizes the build for the best performance.
 
-The build is minified and the filenames include the hashes.<br />
-Your app is ready to be deployed!
+---
 
-See the section about [deployment](https://facebook.github.io/create-react-app/docs/deployment) for more information.
+### Redux-Toolkit
 
-### `yarn eject`
+is officially recommonended by Redux community. It comes with bunch helper function which simplifies Redux code.
 
-**Note: this is a one-way operation. Once you `eject`, you can’t go back!**
+I used this library, because it is easier to use and read (in my opinion). And it comes already with well-know packages as Redux-Thunk, Reselect and DevTools for Redux.
 
-If you aren’t satisfied with the build tool and configuration choices, you can `eject` at any time. This command will remove the single build dependency from your project.
+`configureStore` - already includes devtools enhancer as well as handles async functionality (with thunk behind the scenes)
 
-Instead, it will copy all the configuration files and the transitive dependencies (webpack, Babel, ESLint, etc) right into your project so you have full control over them. All of the commands except `eject` will still work, but they will point to the copied scripts so you can tweak them. At this point you’re on your own.
+`createAction` - replaces creating action creators + action types; can be called with payload and its can be accessed with `.type` signature
 
-You don’t have to ever use `eject`. The curated feature set is suitable for small and middle deployments, and you shouldn’t feel obligated to use this feature. However we understand that this tool wouldn’t be useful if you couldn’t customize it when you are ready for it.
+`createReducer` - takes two parameters, first is initialState and second is object with key-value pairs; keys are actions and values are functions that handles those actions.
 
-## Learn More
+`createSlice` - automatically creates for us actions and reducers. It takes object with reducer name, its initialState, and reducers -> action and actionHandler
 
-You can learn more in the [Create React App documentation](https://facebook.github.io/create-react-app/docs/getting-started).
+---
 
-To learn React, check out the [React documentation](https://reactjs.org/).
+I started the project with simple one page + one to visualise initial steps and see if I am getting any errors. After I switched to configuring the store. I went with Redux state manager, because I think it gives good control of state of an App, and handles pretty well passing and reacting to the certain state. But of course, other state management systems certainly can be used, such as Hooks + ContextAPI, GraphQL and etc.
 
-### Code Splitting
+Along with configuring the store I decided to create `entities` file; looking up the future there might be several reducers. Therefore it is easier to just include them there and keep `reducer` file clean.
 
-This section has moved here: https://facebook.github.io/create-react-app/docs/code-splitting
+To wrap up the store functinality I tested all the essential part of it.
 
-### Analyzing the Bundle Size
+---
 
-This section has moved here: https://facebook.github.io/create-react-app/docs/analyzing-the-bundle-size
+For styling I used Styled-Components package, but not an CSS preprocessor. Before I used to write in SASS, and I am fairly new into Styled-Components, so I gave it a try. It can be improved in terms of structure and organisation -> Refactoring point for Future.
 
-### Making a Progressive Web App
+---
 
-This section has moved here: https://facebook.github.io/create-react-app/docs/making-a-progressive-web-app
+Updated React and ReactDOM, since I wanted to show that I know hooks as well. They are relatively new, but getting popular in React community. I used it to build `rating` component.
 
-### Advanced Configuration
+---
 
-This section has moved here: https://facebook.github.io/create-react-app/docs/advanced-configuration
+Tasks list to improve:
 
-### Deployment
+- [x] styling
+- [x] hiding properly API_KEY
+- [x] create interceptors to include headers
+- [x] some optimisation (lazy loading, memo, error-boundary) IF application grows
 
-This section has moved here: https://facebook.github.io/create-react-app/docs/deployment
+---
 
-### `yarn build` fails to minify
-
-This section has moved here: https://facebook.github.io/create-react-app/docs/troubleshooting#npm-run-build-fails-to-minify
+Happy to discuss further improvements, suggestions and some decisions that I made.
