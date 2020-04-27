@@ -33,7 +33,6 @@ const PlacesPage = ({
 	search,
 	loadPlaces,
 }) => {
-	console.log('PLACES', places)
 	const [place, setType] = useState('')
 	const [selected, setSelected] = useState([])
 
